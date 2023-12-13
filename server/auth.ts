@@ -7,16 +7,16 @@ export const authOptions: NextAuthOptions = {
 		strategy: 'jwt',
 	},
 	callbacks: {
-		async jwt({ token, account, profile }) {
-			console.log(account, 'account');
-			if (account && account.type === 'credentials') {
-				token.userId = account.providerAccountId;
+		async jwt({ token, user, account, profile }) {
+			let _token = token;
+			if (user && account && account.type === 'credentials') {
+				_token.userId = account.providerAccountId;
+				_token = { ..._token, ...user };
 			}
-			return token;
+			return Promise.resolve(_token);
 		},
 		async session({ session, token, user }) {
-			console.log(session, 'HELLO');
-			session.user.id = token.userId;
+			session.user = { ...session.user, ...token };
 			return session;
 		},
 	},
@@ -36,12 +36,10 @@ export const authOptions: NextAuthOptions = {
 					password: string;
 				};
 				const user = userService.authenticate(username, password);
-				console.log('User authenticated:', user);
 				return user;
 			},
 		}),
 	],
 };
-// export default NextAuth(authOptions);
 
 export const getServerAuthSession = () => getServerSession(authOptions);

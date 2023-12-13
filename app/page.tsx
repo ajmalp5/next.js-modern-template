@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default async function Home() {
 	const authSession = await getServerAuthSession(); 
-	console.log(authSession, '');
+	console.log(authSession, 'authSession');
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-between p-24">
 			<h1 className="font-semibold text-3xl">Dashboard</h1>
