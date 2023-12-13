@@ -1,4 +1,5 @@
 'use client';
+import Button from 'insta/components/button/button';
 import FormControl from 'insta/components/form-control/form-control';
 import Input from 'insta/components/input/input';
 import { signIn } from 'next-auth/react';
@@ -67,12 +68,10 @@ export default function LoginPage({ searchParams }: PageProps) {
 						</FormControl>
 
 						<div>
-							<button
-								type="submit"
-								className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-							>
-								Sign in
-							</button>
+							<Button type="button" onClick={() => signIn('google', {callbackUrl: '/',})}>
+								Sign in with google
+							</Button>
+							<Button className='mt-2' type="submit">Sign in</Button>
 						</div>
 						{searchParams.error && (
 							<p className="text-red-600 text-center capitalize">

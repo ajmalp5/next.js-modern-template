@@ -7,7 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: React.FC<ButtonProps> = ({ children, className, ...props }) => {
 	return (
-		<button className={twMerge('h-8 flex items-center justify-center px-4 bg-blue-600 text-white rounded-md', className)} {...props}>
+		<button className={twMerge('h-8 w-full flex items-center justify-center px-4 bg-blue-600 text-white rounded-md', className)} {...props}>
 			{children}
 		</button>
 	);

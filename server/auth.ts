@@ -1,5 +1,6 @@
 import { NextAuthOptions, getServerSession } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
 import { userService } from './services/user.service';
 export const authOptions: NextAuthOptions = {
 	secret: '5FwbEzbP/je2KKY/VcmwcicWYQkg2YVgbLxgV4nl2PU=',
@@ -7,6 +8,12 @@ export const authOptions: NextAuthOptions = {
 		strategy: 'jwt',
 	},
 	callbacks: {
+		async signIn({ account, profile }) {
+			if (account?.provider === 'google') {
+				return true
+			}
+			return true;
+		},
 		async jwt({ token, user, account, profile }) {
 			let _token = token;
 			if (user && account && account.type === 'credentials') {
@@ -24,6 +31,10 @@ export const authOptions: NextAuthOptions = {
 		signIn: '/login',
 	},
 	providers: [
+		GoogleProvider({
+			clientId: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+		}),
 		Credentials({
 			name: 'Credentials',
 			credentials: {
