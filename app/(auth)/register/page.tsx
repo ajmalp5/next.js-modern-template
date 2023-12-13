@@ -2,6 +2,11 @@ import Button from 'insta/components/button/button';
 import FormControl from 'insta/components/form-control/form-control';
 import Input from 'insta/components/input/input';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+	title: 'Register Page',
+};
 
 export default function RegisterPage() {
 	return (
